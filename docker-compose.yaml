@@ -1,0 +1,71 @@
+version: '3.7'
+services:
+
+  nginx: 
+    restart: always
+    image: nginx:1.21.1-alpine
+    container_name: nginx_reverse_proxy
+    volumes: 
+      - ./server_conf/nginx/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key:ro
+      - ./server_conf/nginx/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt:ro
+      - ./server_conf/nginx/self-signed.conf:/etc/nginx/snippets/self-signed.conf:ro
+      - ./server_conf/nginx/dhparam.pem:/etc/ssl/certs/dhparam.pem:ro
+      - ./server_conf/nginx/site.conf:/etc/nginx/conf.d/site.conf:ro
+      - ./server_conf/nginx/ssl-params.conf:/etc/nginx/snippets/ssl-params.conf:ro
+    networks: 
+      - argus_backend
+    ports: 
+      - 443:443
+      - 80:80
+
+  grafana: 
+    restart: always
+    image: grafana/grafana:8.1.1
+    container_name: grafana
+    environment: 
+      - GF_SECURITY_ADMIN_PASSWORD=$GF_SECURITY_ADMIN_PASSWORD
+      - GF_INSTALL_PLUGINS=$GF_INSTALL_PLUGINS
+      - INFLUXDB_USER_PASSWORD=$INFLUXDB_USER_PASSWORD
+      - GF_SERVER_ROOT_URL=$GF_SERVER_ROOT_URL
+      - GF_SERVER_DOMAIN=$GF_SERVER_DOMAIN
+    volumes:
+      - grafana_volume:/var/lib/grafana
+      - ./server_conf/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./server_conf/grafana/provisioning/:/etc/grafana/provisioning/
+      - ./server_conf/grafana/dashboards:/var/lib/grafana/dashboards
+    networks: 
+      - argus_backend
+
+  prometheus:
+    restart: always
+    image: prom/prometheus:v2.19.1
+    container_name: prometheus_server
+    volumes: 
+      - ./server_conf/prometheus:/etc/prometheus
+    networks: 
+      - argus_backend
+
+  influxdb: 
+    restart: always
+    image: influxdb:2.0.8-alpine
+    container_name: em_influxdb
+    networks:
+      - argus_backend
+    expose:
+      - 8086
+      - 8083
+    volumes: 
+      - influxdb_volume:/var/lib/influxdb
+
+
+volumes: 
+  grafana_volume:
+    driver: local
+  influxdb_volume:
+    driver: local
+
+networks: 
+  argus_backend: 
+    external: false
+    driver: bridge
+
