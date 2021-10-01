@@ -5,16 +5,21 @@ apiVersion: 1
 # whats available in the database
 datasources:
   # <string, required> name of the datasource. Required
-- name: em_influxdb
+- name: argus_influxdb
   # <string, required> datasource type. Required
   type: influxdb
   # <string, required> access mode. direct or proxy. Required
   access: proxy
   isDefault: false
   # <string> url
-  url: http://em_influxdb:8086
+  url: http://argus_influxdb:8086
   # <string> database name, if used
-  database: em_infra_metrics
-  user: influx_user
-  password: $INFLUXDB_USER_PASSWORD
+  secureJsonData:
+    user: $INFLUXDB_USER
+    password: $INFLUXDB_USER_PASSWORD
+  jsonData:
+    version: Flux
+    organization: $ORG_NAME
+    defaultBucket: $INFLUXDB_DB
+    tlsSkipVerify: true
 editable: true

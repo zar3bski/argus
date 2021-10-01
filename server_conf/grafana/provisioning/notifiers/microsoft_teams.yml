@@ -13,4 +13,4 @@ notifiers:
     # alert notification type.
     settings:
       uploadImage: true
-      url: https://outlook.office.com/webhook/8d1c1ff7-91e1-4c64-b5b9-6a334539a7f4@5b42af2c-16ec-44ed-840e-b42a371d8757/IncomingWebhook/1229c9458c9a4003ab850a86cad4d797/6f86ee96-2121-4a41-bb93-8b5f0a7a4ac6
+      url: <WEB_HOOK_URL>

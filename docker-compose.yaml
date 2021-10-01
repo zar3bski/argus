@@ -4,7 +4,7 @@ services:
   nginx: 
     restart: always
     image: nginx:1.21.1-alpine
-    container_name: nginx_reverse_proxy
+    container_name: argus_nginx
     volumes: 
       - ./server_conf/nginx/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key:ro
       - ./server_conf/nginx/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt:ro
@@ -21,7 +21,7 @@ services:
   grafana: 
     restart: always
     image: grafana/grafana:8.1.1
-    container_name: grafana
+    container_name: argus_grafana
     environment: 
       - GF_SECURITY_ADMIN_PASSWORD=$GF_SECURITY_ADMIN_PASSWORD
       - GF_INSTALL_PLUGINS=$GF_INSTALL_PLUGINS
@@ -39,7 +39,7 @@ services:
   prometheus:
     restart: always
     image: prom/prometheus:v2.19.1
-    container_name: prometheus_server
+    container_name: argus_prometheus
     volumes: 
       - ./server_conf/prometheus:/etc/prometheus
     networks: 
@@ -48,7 +48,24 @@ services:
   influxdb: 
     restart: always
     image: influxdb:2.0.8-alpine
-    container_name: em_influxdb
+    container_name: argus_influxdb
+    environment: 
+      - DOCKER_INFLUXDB_INIT_USERNAME=$INFLUXDB_USER
+      - DOCKER_INFLUXDB_INIT_PASSWORD=$INFLUXDB_USER_PASSWORD
+      - DOCKER_INFLUXDB_INIT_ORG=$ORG_NAME
+      - DOCKER_INFLUXDB_INIT_BUCKET=$INFLUXDB_DB
+    networks:
+      - argus_backend
+    expose:
+      - 8086
+      - 8083
+    volumes: 
+      - influxdb_volume:/var/lib/influxdb
+
+  loki: 
+    restart: always
+    image: grafana/loki:main-0f10a54
+    container_name: argus_loki
     networks:
       - argus_backend
     expose:
