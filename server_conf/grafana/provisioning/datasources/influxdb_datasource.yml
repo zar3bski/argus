@@ -14,9 +14,8 @@ datasources:
   # <string> url
   url: http://argus_influxdb:8086
   # <string> database name, if used
-  secureJsonData:
-    user: $INFLUXDB_USER
-    password: $INFLUXDB_USER_PASSWORD
+  secureJsonData: 
+    token: $INFLUXDB_INIT_ADMIN_TOKEN
   jsonData:
     version: Flux
     organization: $ORG_NAME
