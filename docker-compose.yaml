@@ -62,8 +62,9 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=$INFLUXDB_INIT_ADMIN_TOKEN
     networks:
       - argus_backend
+    ports: 
+      - 8086:8086
     expose:
-      - 8086
       - 8083
     volumes: 
       - influxdb_volume:/var/lib/influxdb2
