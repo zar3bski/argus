@@ -11,14 +11,11 @@ datasources:
   # <string, required> access mode. direct or proxy. Required
   access: proxy
   isDefault: false
+  basicAuthUser: $INFLUXDB_ADMIN_USER
+  secureJsonData:
+    basicAuthPassword: $INFLUXDB_ADMIN_PASSWORD
   # <string> url
   url: http://argus_influxdb:8086
   # <string> database name, if used
-  secureJsonData: 
-    token: $INFLUXDB_INIT_ADMIN_TOKEN
-  jsonData:
-    version: Flux
-    organization: $ORG_NAME
-    defaultBucket: $INFLUXDB_DB
-    tlsSkipVerify: true
+  database: $INFLUXDB_DB
 editable: true

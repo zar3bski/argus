@@ -7,8 +7,8 @@ services:
     environment: 
       - ORG_NAME=$ORG_NAME
       - INFLUXDB_URL=$INFLUXDB_URL
-      - INFLUXDB_DB=$INFLUXDB_DB
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=$INFLUXDB_INIT_ADMIN_TOKEN
+      - INFLUXDB_PASSWORD=$INFLUXDB_USER_PASSWORD
+      - INFLUXDB_USER=$INFLUXDB_USER
     volumes: 
       - ./telegraf/:/etc/telegraf/
     
