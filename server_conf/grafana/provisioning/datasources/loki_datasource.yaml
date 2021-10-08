@@ -1,0 +1,16 @@
+apiVersion: 1
+
+
+# list of datasources to insert/update depending
+# whats available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+- name: argus_loki
+  # <string, required> datasource type. Required
+  type: loki
+  # <string, required> access mode. direct or proxy. Required
+  access: proxy
+  isDefault: false
+  url: http://argus_loki:3100
+  # <string> database name, if used
+editable: true

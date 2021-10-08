@@ -74,11 +74,10 @@ services:
     container_name: argus_loki
     networks:
       - argus_backend
-    expose:
-      - 8086
-      - 8083
+    ports: 
+      - 3100:3100
     volumes: 
-      - loki_volume:/var/lib/loki
+      - loki_volume:/loki
 
 
 volumes: 
