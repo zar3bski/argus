@@ -11,6 +11,7 @@ datasources:
   # <string, required> access mode. direct or proxy. Required
   access: proxy
   isDefault: false
+  basicAuth: true
   basicAuthUser: $INFLUXDB_ADMIN_USER
   secureJsonData:
     basicAuthPassword: $INFLUXDB_ADMIN_PASSWORD

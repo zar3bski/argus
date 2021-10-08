@@ -6,6 +6,7 @@ services:
     container_name: argus_telegraf
     environment: 
       - ORG_NAME=$ORG_NAME
+      - INFLUXDB_DB=$INFLUXDB_DB
       - INFLUXDB_URL=$INFLUXDB_URL
       - INFLUXDB_PASSWORD=$INFLUXDB_USER_PASSWORD
       - INFLUXDB_USER=$INFLUXDB_USER
