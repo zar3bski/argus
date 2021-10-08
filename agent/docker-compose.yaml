@@ -12,4 +12,12 @@ services:
       - INFLUXDB_USER=$INFLUXDB_USER
     volumes: 
       - ./telegraf/:/etc/telegraf/
-      
+  promtail: 
+    restart: always
+    image: grafana/promtail:main-0f10a54
+    container_name: argus_promtail
+    environment:
+      - ARGUS_URL=$ARGUS_URL
+    command: -config.file=/etc/promtail/config.yml -config.expand-env=true
+    volumes: 
+      - ./promtail/:/etc/promtail/
