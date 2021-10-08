@@ -7,9 +7,9 @@ services:
     environment: 
       - HOSTNAME=$HOSTNAME
       - INFLUXDB_DB=$INFLUXDB_DB
-      - INFLUXDB_URL=$INFLUXDB_URL
+      - ARGUS_URL=$ARGUS_URL
       - INFLUXDB_PASSWORD=$INFLUXDB_USER_PASSWORD
       - INFLUXDB_USER=$INFLUXDB_USER
     volumes: 
       - ./telegraf/:/etc/telegraf/
-    
+      

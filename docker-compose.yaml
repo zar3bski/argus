@@ -61,10 +61,10 @@ services:
       - INFLUXDB_HTTP_AUTH_ENABLED=true
     networks:
       - argus_backend
-    ports: 
-      - 8086:8086
-    expose:
-      - 8083
+    #ports: 
+    #  - 8086:8086
+    #expose:
+    #  - 8083
     volumes: 
       - influxdb_volume:/var/lib/influxdb
 
