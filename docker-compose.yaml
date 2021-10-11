@@ -5,6 +5,9 @@ services:
     restart: always
     image: nginx:1.21.1-alpine
     container_name: argus_nginx
+    environment:
+      - LOKI_USER=$LOKI_USER
+      - LOKI_PASSWORD=$LOKI_PASSWORD
     volumes: 
       - ./server_conf/nginx/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key:ro
       - ./server_conf/nginx/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt:ro
@@ -12,6 +15,7 @@ services:
       - ./server_conf/nginx/dhparam.pem:/etc/ssl/certs/dhparam.pem:ro
       - ./server_conf/nginx/site.conf:/etc/nginx/conf.d/site.conf:ro
       - ./server_conf/nginx/ssl-params.conf:/etc/nginx/snippets/ssl-params.conf:ro
+      - ./server_conf/nginx/generate_htpasswd.sh:/docker-entrypoint.d/generate_htpasswd.sh
     networks: 
       - argus_backend
     ports: 
@@ -74,8 +78,7 @@ services:
     container_name: argus_loki
     networks:
       - argus_backend
-    ports: 
-      - 3100:3100
+    command: -config.file=/etc/loki/local-config.yaml
     volumes: 
       - loki_volume:/loki
 

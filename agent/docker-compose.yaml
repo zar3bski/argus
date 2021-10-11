@@ -18,6 +18,8 @@ services:
     container_name: argus_promtail
     environment:
       - ARGUS_URL=$ARGUS_URL
+      - LOKI_USER=$LOKI_USER
+      - LOKI_PASSWORD=$LOKI_PASSWORD
     command: -config.file=/etc/promtail/config.yml -config.expand-env=true
     volumes: 
       - ./promtail/:/etc/promtail/
