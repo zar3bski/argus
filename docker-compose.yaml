@@ -35,6 +35,10 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=$INFLUXDB_ADMIN_PASSWORD
       - INFLUXDB_ADMIN_USER=$INFLUXDB_ADMIN_USER
       - INFLUXDB_DB=$INFLUXDB_DB
+      - AUTH_GITLAB_ENABLED=$AUTH_GITLAB_ENABLED
+      - AUTH_GITLAB_CLIENT_ID=$AUTH_GITLAB_CLIENT_ID
+      - AUTH_GITLAB_CLIENT_SECRET=$AUTH_GITLAB_CLIENT_SECRET
+      - AUTH_GITLAB_ALLOWED_GROUPS=$AUTH_GITLAB_ALLOWED_GROUPS
     volumes:
       - grafana_volume:/var/lib/grafana
       - ./server_conf/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
