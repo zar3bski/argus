@@ -1,9 +1,9 @@
 # argus
-One node observability stack: Grafana, Influxdb in a docker-compose
+One node observability stack: Grafana, Influxdb and Loki in a docker-compose
 
-## server
+## General Architecture
 
-
+![](docs/img/argus_architecture.drawio.png)
 
 
 ## Div
