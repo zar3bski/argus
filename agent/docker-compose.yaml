@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  telegraf: 
+    restart: always
+    image: telegraf:1.20-alpine
+    container_name: argus_telegraf
+    environment: 
+      - HOSTNAME=$HOSTNAME
+      - INFLUXDB_DB=$INFLUXDB_DB
+      - ARGUS_URL=$ARGUS_URL
+      - INFLUXDB_PASSWORD=$INFLUXDB_USER_PASSWORD
+      - INFLUXDB_USER=$INFLUXDB_USER
+    volumes: 
+      - ./telegraf/:/etc/telegraf/
+  promtail: 
+    restart: always
+    image: grafana/promtail:main-0f10a54
+    container_name: argus_promtail
+    environment:
+      - ARGUS_URL=$ARGUS_URL
+      - LOKI_USER=$LOKI_USER
+      - LOKI_PASSWORD=$LOKI_PASSWORD
+    command: -config.file=/etc/promtail/config.yml -config.expand-env=true
+    volumes: 
+      - ./promtail/:/etc/promtail/

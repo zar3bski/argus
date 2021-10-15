@@ -1,0 +1,22 @@
+apiVersion: 1
+
+
+# list of datasources to insert/update depending
+# whats available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+- name: argus_influxdb
+  # <string, required> datasource type. Required
+  type: influxdb
+  # <string, required> access mode. direct or proxy. Required
+  access: proxy
+  isDefault: false
+  basicAuth: true
+  basicAuthUser: $INFLUXDB_ADMIN_USER
+  secureJsonData:
+    basicAuthPassword: $INFLUXDB_ADMIN_PASSWORD
+  # <string> url
+  url: http://argus_influxdb:8086
+  # <string> database name, if used
+  database: $INFLUXDB_DB
+editable: true
